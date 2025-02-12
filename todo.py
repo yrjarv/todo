@@ -77,7 +77,7 @@ def write_to_file(filename: str, todolist: list[TodoElement]) -> None:
 
 
 def main() -> None:
-    filename = "todolist/todo.txt"
+    filename = "todolist/todo.txt"  # Please change this when you use the script
     args = sys.argv[1:]
 
     todolist = read_from_file(filename)
