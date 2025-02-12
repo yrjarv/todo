@@ -14,11 +14,7 @@ In order to make the file available from everywhere on the system, I recommend s
 
 `./todo.py add <category> <name> <due date> <priority>`
 
-`due date` and `priority` are optional. If `due date` is not given, the current date is used. If `priority` is not given, priority 0 is used.
-
-If you want to specify a priority without specifying a due date, you need to enter `""` as `due date`.
-
-The format for the due date is `yyyy-mm-dd`.
+`due date` is optional. If `due date` is not given, the current date is used. The format for the due date is `yyyy-mm-dd`.
 
 ### Listing all the elements that have not been completed
 

@@ -12,11 +12,10 @@ class TodoElement:
         self.category: str = ""
         self.name: str = ""
         self.duedate: datetime.date = datetime.datetime.today().date()
-        self.priority: int = 0
 
     def from_storage(self, string: str) -> None:
         string_elements: list[str] = string.split(";")
-        if len(string_elements) != 4:
+        if len(string_elements) != 3:
             raise ValueError("Invalid string length: " + string)
 
         self.category = string_elements[0]
@@ -25,14 +24,10 @@ class TodoElement:
         year, month, day = (int(element) for element in string_elements[2].split("-"))
         self.duedate = datetime.date(year, month, day)
 
-        self.priority = int(string_elements[3])
-
     def to_storage(self) -> str:
-        return f"{self.category};{self.name};{self.duedate};{self.priority}"
+        return f"{self.category};{self.name};{self.duedate}"
 
-    def from_input(
-        self, category: str, name: str, duedate: str = "", priority: str = "0"
-    ) -> None:
+    def from_input(self, category: str, name: str, duedate: str = "") -> None:
         self.category = category
         self.name = name
 
@@ -45,16 +40,8 @@ class TodoElement:
             except ValueError:
                 raise ValueError("Invalid date: " + duedate)
 
-        if priority == "":
-            self.priority = 0
-        else:
-            try:
-                self.priority = int(priority)
-            except ValueError:
-                raise ValueError("Invalid priority: " + priority)
-
     def __str__(self) -> str:
-        return f"{self.duedate}: {self.category} {self.name}, P{self.priority}"
+        return f"{self.duedate}: {self.category} {self.name}"
 
 
 def read_from_file(filename: str) -> list[TodoElement]:
@@ -86,13 +73,9 @@ def main() -> None:
 ------------------------------------------------
 Adding a new task
 
-    ./todo.py add <category> <name> <due date> <priority>
+    ./todo.py add <category> <name> <due date>
 
-    due date and priority are optional. If due date is not given, the current date is used. If priority is not given, priority 0 is used.
-
-    If you want to specify a priority without specifying a due date, you need to enter "" as due date.
-
-    The format for the due date is yyyy-mm-dd.
+    due date is optional. If due date is not given, the current date is used. The format for the due date is yyyy-mm-dd.
 
 ------------------------------------------------
 Listing all the elements that have not been completed
