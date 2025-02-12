@@ -80,6 +80,37 @@ def main() -> None:
     filename = "todolist/todo.txt"  # Please change this when you use the script
     args = sys.argv[1:]
 
+    if len(args) == 0:
+        print(
+            """
+------------------------------------------------
+Adding a new task
+
+    ./todo.py add <category> <name> <due date> <priority>
+
+    due date and priority are optional. If due date is not given, the current date is used. If priority is not given, priority 0 is used.
+
+    If you want to specify a priority without specifying a due date, you need to enter "" as due date.
+
+    The format for the due date is yyyy-mm-dd.
+
+------------------------------------------------
+Listing all the elements that have not been completed
+
+    ./todo.py ls
+
+    This lists all elements, sorted by due date in descending order. There is also a number next to each element, this number is there to aid with completing an element.
+
+------------------------------------------------
+Completing a task
+
+    ./todo.py do <number>
+
+    Here, number refers to the number that is seen next to the elements when you run ./todo.py ls. Completing an element removes it completely, which is why I recommend having some form of version control (e.g. git) on the todo.txt file.
+"""
+        )
+        return
+
     todolist = read_from_file(filename)
 
     if args[0] == "ls":
