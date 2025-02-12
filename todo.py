@@ -71,28 +71,46 @@ def main() -> None:
     if len(args) == 0:
         print(
             """
-------------------------------------------------
-Adding a new task
+## Usage
 
-    ./todo.py add <category> <name> <due date>
+### Adding a new task
 
-    due date is optional. If due date is not given, the current date is used. The format for the due date is ddmmm, e.g. 28feb.
+`./todo.py add <category> <name> <due date> <priority>`
 
-------------------------------------------------
-Listing all the elements that have not been completed
+`due date` is optional. If `due date` is not given, the current date is used. The format for the due date is `ddmmm`, e.g. `28feb`.
 
-    ./todo.py ls
+### Listing all the elements that have not been completed
 
-    This lists all elements, sorted by due date in descending order. There is also a number next to each element, this number is there to aid with completing an element.
-    
-    `amount` specifies how many elements to show, this argument is optional (defaults to 10).
+`./todo.py ls <amount>`
 
-------------------------------------------------
-Completing a task
+This lists all elements, sorted by due date in descending order. There is also a number next to each element, this number is there to aid with completing an element.
 
-    ./todo.py do <number>
+`amount` specifies how many elements to show, this argument is optional (defaults to 10).
 
-    Here, number refers to the number that is seen next to the elements when you run ./todo.py ls. Completing an element removes it completely, which is why I recommend having some form of version control (e.g. git) on the todo.txt file.
+### Completing a task
+
+`./todo.py do <number>`
+
+Here, `number` refers to the number that is seen next to the elements when you run `./todo.py ls`. Completing an element removes it completely, which is why I recommend having some form of version control (e.g. git) on the `todo.txt` file.
+
+### Editing a task's name
+
+`./todo.py editname <number> <name>`
+
+Changing the name of the element with a specific number (see 'Completing a task') to `name`.
+
+### Editing a task's date
+
+`./todo.py editdate <number> <date>`
+
+Changing the date, just as with `editname`. `date` is a date on the same format as when you add a new element.
+
+### Editing which category a task is in
+
+`./todo.py editcat <number> <category>`
+
+Changing the category
+
 """
         )
         return
@@ -118,6 +136,28 @@ Completing a task
     elif args[0] == "do":
         index = len(todolist) - int(args[1])
         todolist.remove(todolist[index])
+
+    elif args[0] == "editname":
+        index = len(todolist) - int(args[1])
+        todolist[index].name = args[2]
+
+    elif args[0] == "editdate":
+        index = len(todolist) - int(args[1])
+        element = todolist[index]
+        duedate = args[2]
+        if duedate == "":
+            element.duedate = datetime.datetime.today().date()
+        else:
+            try:
+                element.duedate = datetime.datetime.strptime(
+                    f"{duedate}{datetime.datetime.today().year}", "%d%b%Y"
+                ).date()
+            except ValueError as e:
+                raise ValueError("Invalid date: " + duedate, e)
+
+    elif args[0] == "editcat":
+        index = len(todolist) - int(args[1])
+        todolist[index].category = args[2]
 
     write_to_file(filename, todolist)
 
