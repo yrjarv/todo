@@ -84,6 +84,8 @@ Listing all the elements that have not been completed
     ./todo.py ls
 
     This lists all elements, sorted by due date in descending order. There is also a number next to each element, this number is there to aid with completing an element.
+    
+    `amount` specifies how many elements to show, this argument is optional (defaults to 10).
 
 ------------------------------------------------
 Completing a task
@@ -98,9 +100,15 @@ Completing a task
     todolist = read_from_file(filename)
 
     if args[0] == "ls":
+        if len(args) > 1:
+            amount = int(args[1])
+        else:
+            amount = 10
+        from_index = len(todolist) - amount
+
         todolist.sort(key=lambda e: e.duedate, reverse=True)
-        for i, element in enumerate(todolist):
-            print(f"{len(todolist) - i} {element}")
+        for i, element in enumerate(todolist[from_index:]):
+            print(f"{len(todolist) - from_index - i} {element}")
 
     elif args[0] == "add":
         element = TodoElement()

@@ -18,9 +18,11 @@ In order to make the file available from everywhere on the system, I recommend s
 
 ### Listing all the elements that have not been completed
 
-`./todo.py ls`
+`./todo.py ls <amount>`
 
 This lists all elements, sorted by due date in descending order. There is also a number next to each element, this number is there to aid with completing an element.
+
+`amount` specifies how many elements to show, this argument is optional (defaults to 10).
 
 ### Completing a task
 
