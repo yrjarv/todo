@@ -122,6 +122,10 @@ Changing the category
             amount = int(args[1])
         else:
             amount = 10
+
+        if amount >= len(todolist) - 1:
+            amount = len(todolist) - 1
+
         from_index = len(todolist) - amount
 
         todolist.sort(key=lambda e: e.duedate, reverse=True)
