@@ -130,7 +130,7 @@ Changing the category
 
         todolist.sort(key=lambda e: e.duedate, reverse=True)
         for i, element in enumerate(todolist[from_index:]):
-            print(f"{len(todolist) - from_index - i} {element}")
+            print(f"{len(todolist) - from_index - i:3} {element}")
 
     elif args[0] == "add":
         element = TodoElement()
