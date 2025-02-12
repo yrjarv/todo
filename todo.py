@@ -35,10 +35,11 @@ class TodoElement:
             self.duedate = datetime.datetime.today().date()
         else:
             try:
-                year, month, day = (int(element) for element in duedate.split("-"))
-                self.duedate = datetime.date(year, month, day)
-            except ValueError:
-                raise ValueError("Invalid date: " + duedate)
+                self.duedate = datetime.datetime.strptime(
+                    f"{duedate}{datetime.datetime.today().year}", "%d%b%Y"
+                ).date()
+            except ValueError as e:
+                raise ValueError("Invalid date: " + duedate, e)
 
     def __str__(self) -> str:
         return f"{self.duedate}: {self.category} {self.name}"
@@ -75,7 +76,7 @@ Adding a new task
 
     ./todo.py add <category> <name> <due date>
 
-    due date is optional. If due date is not given, the current date is used. The format for the due date is yyyy-mm-dd.
+    due date is optional. If due date is not given, the current date is used. The format for the due date is ddmmm, e.g. 28feb.
 
 ------------------------------------------------
 Listing all the elements that have not been completed
