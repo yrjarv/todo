@@ -1,5 +1,7 @@
 # Todo-CLI
 
+**WARNING**: This is not really maintained anymore, even though I use it daily. Therefore, this README might be quite out of sync with the real behaviour of the script.
+
 A very, very simple CLI for manging a todolist. If you want synchronization, you will need to sync the `.txt` file with GitHub or a similar tool.
 
 This is primarily made for myself, but I thought that maybe someone else needs an extremely minimal todo CLI, so I might as well share the code.
