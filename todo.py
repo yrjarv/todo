@@ -2,6 +2,7 @@
 """Python program to manage a todolist"""
 
 import sys
+import os
 import datetime
 
 
@@ -65,7 +66,7 @@ def write_to_file(filename: str, todolist: list[TodoElement]) -> None:
 
 
 def main() -> None:
-    filename = "todolist/todo.txt"  # Please change this when you use the script
+    filename = os.path.expanduser("~/todolist/todo.txt")
     args = sys.argv[1:]
 
     if len(args) == 0:
