@@ -72,46 +72,24 @@ def main() -> None:
     if len(args) == 0:
         print(
             """
-## Usage
+Usage
 
-### Adding a new task
-
-`./todo.py add <category> <name> <due date> <priority>`
-
-`due date` is optional. If `due date` is not given, the current date is used. The format for the due date is `ddmmm`, e.g. `28feb`.
-
-### Listing all the elements that have not been completed
+./todo.py add <category> <name> <due date> <priority>
+    `due date` is optional. If `due date` is not given, the current date is
+    used. The format for the due date is `ddmmm`, e.g. `28feb`.
 
 `./todo.py ls <amount>`
-
-This lists all elements, sorted by due date in descending order. There is also a number next to each element, this number is there to aid with completing an element.
-
-`amount` specifies how many elements to show, this argument is optional (defaults to 10).
-
-### Completing a task
+    Lists all elements, sorted by due date in descending order.
+    `amount` specifies how many elements to show, this argument is optional
+        (defaults to showing all)
 
 `./todo.py do <number>`
 
-Here, `number` refers to the number that is seen next to the elements when you run `./todo.py ls`. Completing an element removes it completely, which is why I recommend having some form of version control (e.g. git) on the `todo.txt` file.
-
-### Editing a task's name
-
 `./todo.py editname <number> <name>`
-
-Changing the name of the element with a specific number (see 'Completing a task') to `name`.
-
-### Editing a task's date
 
 `./todo.py editdate <number> <date>`
 
-Changing the date, just as with `editname`. `date` is a date on the same format as when you add a new element.
-
-### Editing which category a task is in
-
 `./todo.py editcat <number> <category>`
-
-Changing the category
-
 """
         )
         return
@@ -122,12 +100,12 @@ Changing the category
         if len(args) > 1:
             amount = int(args[1])
         else:
-            amount = 10
+            amount = len(todolist)
 
-        if amount >= len(todolist) - 1:
-            amount = len(todolist) - 1
+        if amount > len(todolist):
+            amount = len(todolist)
 
-        from_index = len(todolist) - amount
+        from_index = len(todolist) - amount + 1
 
         todolist.sort(key=lambda e: e.duedate, reverse=True)
         for i, element in enumerate(todolist[from_index - 1:]):
