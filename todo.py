@@ -76,7 +76,7 @@ def main() -> None:
     addParser.add_argument("category")
     addParser.add_argument("name")
     addParser.add_argument("due_date", nargs="?",
-                           default=str(datetime.datetime.today().date()))
+                           default=datetime.datetime.today().date().strftime("%d%b"))
     lsParser = verbParsers.add_parser("ls")
     lsParser.add_argument("number", type=int, nargs="?", default=len(todolist))
     doParser = verbParsers.add_parser("do")
